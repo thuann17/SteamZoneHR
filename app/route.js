@@ -2,46 +2,47 @@ var app = angular.module('app', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when("/dashboard", {
-            templateUrl: "app/admin/components/dashboard/dashboard.template.html",
-            controller: "dashboardController"
+        // Nhân viên
+        .when("/employees", {
+            templateUrl: "app/route/employees.html",
+            controller: "employeeController"
         })
-        .when("/manage-product-and-version", {
-            templateUrl: "app/admin/components/manage-products/manage-products.template.html",
-            controller: "manageProductController"
+        // Chức vụ
+        .when("/positions", {
+            templateUrl: "app/route/positions.html",
+            controller: "positionController"
         })
-        .when("/manage-attribute-and-value", {
-            templateUrl: "app/admin/components/manage-attributes/manage-attributes.template.html",
-            controller: "manageAttributeValueController"
+        // Phòng ban
+        .when("/departments", {
+            templateUrl: "app/route/departments.html",
+            controller: "departmentController"
         })
-        .when("/manage-account", {
-            templateUrl: "app/admin/components/manage-accounts/manage-users.template.html",
-            controller: "manageUserController"
+        // Chức vụ - phòng ban
+        .when("/positions-departments", {
+            templateUrl: "app/route/positions-departments.html",
+            controller: "positionDepartmentController"
         })
-        .when("/manage-role", {
-            templateUrl: "app/admin/components/manage-roles/manage-roles.template.html",
-            controller: "manageRoleController"
+        // Chấm công
+        .when("/attendance", {
+            templateUrl: "app/route/attendance.html",
+            controller: "attendanceController"
         })
-        .when("/manage-rating", {
-            templateUrl: "app/admin/components/manage-ratings/manage-ratings.template.html",
-            controller: "manageRatingController"
+        // Phụ cấp
+        .when("/allowances", {
+            templateUrl: "app/route/allowances.html",
+            controller: "allowanceController"
         })
-        .when("/manage-category", {
-            templateUrl: "app/admin/components/manage-categories/manage-categories.template.html",
-            controller: "manageCategoryController"
+        // Phụ cấp nhân viên
+        .when("/employee-allowances", {
+            templateUrl: "app/route/employee-allowances.html",
+            controller: "employeeAllowanceController"
         })
-        .when("/manage-order", {
-            templateUrl: "app/admin/components/manage-orders/manage-orders.template.html",
-            controller: "manageOrderController"
+        // Hợp đồng
+        .when("/contracts", {
+            templateUrl: "app/route/contracts.html",
+            controller: "contractController"
         })
-        .when("/manage-brand", {
-            templateUrl: "app/admin/components/manage-brands/manage-brands.template.html",
-            controller: "manageBrandController"
-        })
-        .when("/logout", {
-            templateUrl: "app/admin/components/logout/logout.template.html",
-            controller: "logoutController"
-        })
+        // Các đường dẫn khác
         .otherwise({
             redirectTo: "/dashboard"
         });
@@ -51,5 +52,6 @@ app.config(function($routeProvider, $locationProvider) {
         requireBase: false
     });
 });
+
 
 
