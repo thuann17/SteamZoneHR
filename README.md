@@ -1,38 +1,28 @@
-# Vali Admin
+SteamZoneHR là một giao diện quản lý nhân sự miễn phí, mô-đun và dễ tùy chỉnh, được xây dựng bằng Bootstrap 5, SASS và Pug.js.
 
-![vali-admin](http://pratikborsadiya.in/blog/vali-admin/vali-admin-banner.gif)
+Bắt đầu
+Chạy lệnh npm install trong thư mục gốc của dự án để cài đặt và xây dựng các phụ thuộc. Nếu bạn không muốn chỉnh sửa giao diện, bạn có thể sử dụng các tệp đã biên dịch trong thư mục docs.
 
-[![npm version](https://badge.fury.io/js/vali-admin.svg)](https://badge.fury.io/js/vali-admin)
+Sử dụng lệnh npm run dev để theo dõi và biên dịch các tệp nguồn.
 
-Vali is a free, modular and easy to customize admin theme built using [Bootstrap 5](https://getbootstrap.com), [SASS](http://sass-lang.com) and [Pug.js](https://pugjs.org).
+Sử dụng lệnh npm run build để biên dịch tất cả các tệp nguồn.
 
-## Getting started
+Sử dụng lệnh npm run start để khởi động máy chủ phát triển sử dụng NodeJs.
 
-Run a `npm install` command in project root directory to install and build dependencies. If you don't want to edit theme you can use the compiled files inside `docs` folder.
+Lưu ý:
 
-Use `npm run dev` command to watch and compile source files.
+Máy chủ NodeJs được đề cập trong lệnh npm run start chỉ dành cho mục đích phát triển. ĐỪNG sử dụng nó làm máy chủ sản xuất.
+Tùy chỉnh
+Để biết thêm thông tin về cách tùy chỉnh màu sắc giao diện, vui lòng tham khảo tài liệu chính thức.
 
-Use `npm run build` command to compile all source files.
+Hỗ trợ RTL
+Vui lòng theo dõi tài liệu chính thức để kích hoạt hỗ trợ RTL.
 
-Use `npm run start` command to start a development server using NodeJs.
+Đóng góp
+Vui lòng xem qua hướng dẫn đóng góp nếu bạn muốn tham gia đóng góp cho kho lưu trữ.
 
-> **Note:**
-> * The NodeJs server mentioned in `npm run start` command is for development purpose only. DONOT use it as a production server.
-
-## Customization
-For more information about customizing theme colors please follow the official [documentation](https://pratikborsadiya.in/vali-admin/docs.html).
-
-## RTL Support
-Please follow the official [documentation](https://pratikborsadiya.in/vali-admin/docs.html) to enable RTL support.
-
-## Contributing
-Please take a look at [contributing guidelines](CONTRIBUTING.md) if you are considering contributing to the repository.
-
-## Contributors
-
-* **[Pratik Borsadiya](http://pratikborsadiya.in)** - *Project Author*
-* **List of [contributors](https://github.com/pratikborsadiya/vali-admin/graphs/contributors)** who participated in this project.
-
-## License
-
-This project is licensed under the [MIT](LICENSE) License
+Những người đóng góp
+Pratik Borsadiya - Tác giả dự án
+Danh sách các người đóng góp đã tham gia vào dự án này.
+Giấy phép
+Dự án này được cấp phép theo Giấy phép MIT.
