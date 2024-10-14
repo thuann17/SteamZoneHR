@@ -2,6 +2,21 @@ var app = angular.module('app', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
+        // Dashboard
+        .when("/dashboard", {
+            templateUrl: "app/route/dashboard.html", // URL cho dashboard nếu có
+            controller: "dashboardController" // Thay thế bằng controller thực tế nếu có
+        })
+        // Thống kê Lương
+        .when("/salary-statistics", {
+            templateUrl: "app/route/salary-statistics.html",
+            controller: "salaryStatisticsController"
+        })
+        // Thống kê Chấm công
+        .when("/attendance-statistics", {
+            templateUrl: "app/route/attendance-statistics.html",
+            controller: "attendanceStatisticsController"
+        })
         // Nhân viên
         .when("/employees", {
             templateUrl: "app/route/employees.html",
@@ -27,16 +42,6 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: "app/route/attendance.html",
             controller: "attendanceController"
         })
-        // Phụ cấp
-        .when("/allowances", {
-            templateUrl: "app/route/allowances.html",
-            controller: "allowanceController"
-        })
-        // Phụ cấp nhân viên
-        .when("/employee-allowances", {
-            templateUrl: "app/route/employee-allowances.html",
-            controller: "employeeAllowanceController"
-        })
         // Hợp đồng
         .when("/contracts", {
             templateUrl: "app/route/contracts.html",
@@ -52,6 +57,3 @@ app.config(function($routeProvider, $locationProvider) {
         requireBase: false
     });
 });
-
-
-
