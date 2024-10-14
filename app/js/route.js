@@ -11,8 +11,8 @@ app.config(function($routeProvider, $locationProvider) {
         { path: "/departments", template: "departments.html", controller: "departmentController" },
         { path: "/attendance", template: "attendance.html", controller: "attendanceController" },
         { path: "/contracts", template: "contracts.html", controller: "contractController" },
-        { path: "/attendance", template: "attendance.html", controller: "manageAttendanceController" }, // Chấm công
-        { path: "/overtime", template: "overtime.html", controller: "manageOvertimeController" }, // Tăng ca
+        { path: "/attendance", template: "attendance.html", controller: "attendanceController" }, // Chấm công
+        { path: "/overtime", template: "overtime.html", controller: "overtimeController" }, // Tăng ca
         { path: "/overtime-schedule", template: "overtime-schedule.html", controller: "overtimeScheduleController" }, // Lịch tăng ca
     ];
 
