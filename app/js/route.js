@@ -9,9 +9,11 @@ app.config(function($routeProvider, $locationProvider) {
         { path: "/employees", template: "employees.html", controller: "employeeController" },
         { path: "/positions", template: "positions.html", controller: "positionController" },
         { path: "/departments", template: "departments.html", controller: "departmentController" },
-        { path: "/positions-departments", template: "positions-departments.html", controller: "positionDepartmentController" },
         { path: "/attendance", template: "attendance.html", controller: "attendanceController" },
-        { path: "/contracts", template: "contracts.html", controller: "contractController" }
+        { path: "/contracts", template: "contracts.html", controller: "contractController" },
+        { path: "/attendance", template: "attendance.html", controller: "manageAttendanceController" }, // Chấm công
+        { path: "/overtime", template: "overtime.html", controller: "manageOvertimeController" }, // Tăng ca
+        { path: "/overtime-schedule", template: "overtime-schedule.html", controller: "overtimeScheduleController" }, // Lịch tăng ca
     ];
 
     // Lặp qua mảng để cấu hình các route
