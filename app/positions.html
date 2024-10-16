@@ -8,130 +8,140 @@
       <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
     </ul>
   </div>
-  <div class="row">
-    <div class="col-md-6 d-flex flex-column justify-content-between">
-      <div class="tile" style="min-height: 600px;">
-        <h3 class="tile-title">Phòng ban</h3>
-        <form style="max-height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div class="row mb-3">
-              <div class="col-md-8">
-                <label class="form-label">Tên phòng ban:</label>
-                <input type="text" class="form-control" placeholder="Nhập tên phòng ban" ng-model="newDepartment.name">
-              </div>
-              <div class="col-md-4 d-flex align-items-center">
-                <label class="form-label mb-0 me-2">Trạng thái:</label>
-                <div class="form-check form-switch mb-0">
-                  <input class="form-check-input" type="checkbox" ng-model="newDepartment.status">
+  <div class="row" style="display: flex; min-height: 600px;"><!-- Dùng Flexbox trên container chứa cả 2 cột -->
+      <!-- Phần Phòng ban -->
+      <div class="col-md-6 d-flex flex-column justify-content-between flex-grow-1">
+        <div class="tile">
+          <h3 class="tile-title">Phòng ban</h3>
+          <form style="max-height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Nội dung của form Phòng ban -->
+            <div>
+              <div class="row mb-3">
+                <div class="col-md-8">
+                  <label class="form-label">Tên phòng ban:</label>
+                  <input type="text" class="form-control" placeholder="Nhập tên phòng ban"
+                    ng-model="newDepartment.name">
+                </div>
+                <div class="col-md-4 d-flex align-items-center">
+                  <label class="form-label mb-0 me-2">Trạng thái:</label>
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" ng-model="newDepartment.status">
+                  </div>
                 </div>
               </div>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
+                <button type="button" class="btn btn-outline btn-success rounded-pill me-md-1"
+                  ng-click="addDepartment()">Thêm</button>
+              </div>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
-              <button type="button" class="btn btn-outline btn-success rounded-pill me-md-1"
-                ng-click="addDepartment()">Thêm</button>
-            </div>
-          </div>
-          <h3 class="tile-title">Danh sách phòng ban</h3>
-          <table class="table table-hover" id="phongBanTable">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Tên phòng ban</th>
-                <th>Trạng thái</th>
-                <th scope="col" style="width: 20%;">Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="department in departments">
-                <td>{{ department.id }}</td>
-                <td ng-dblclick="editDepartment(department, 'name')">
-                  <input type="text" ng-model="department.name"
-                    ng-show="department.isEditing && department.editingField === 'name'"
-                    ng-blur="saveDepartment(department)" ng-keyup="checkEnter($event, department)" />
-                  <span ng-hide="department.isEditing && department.editingField === 'name'">{{ department.name
-                    }}</span>
-                </td>
-                <td>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" ng-model="department.status"
-                      ng-change="saveDepartment(department)">
+
+            <h3 class="tile-title">Danh sách phòng ban</h3>
+            <table class="table table-hover" id="phongBanTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên phòng ban</th>
+                  <th>Trạng thái</th>
+                  <th scope="col" style="width: 20%;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="department in departments">
+                  <td>{{ department.id }}</td>
+                  <td ng-dblclick="editDepartment(department, 'name')">
+                    <input type="text" ng-model="department.name"
+                      ng-show="department.isEditing && department.editingField === 'name'"
+                      ng-blur="saveDepartment(department)" ng-keyup="checkEnter($event, department)" />
+                    <span ng-hide="department.isEditing && department.editingField === 'name'">{{ department.name
+                      }}</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" ng-model="department.status"
+                        ng-change="saveDepartment(department)">
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <i class="bi bi-trash3-fill text-danger me-4" ng-click="deleteDepartment(department.id)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+
+      <!-- Phần Chức vụ -->
+      <div class="col-md-6 d-flex flex-column justify-content-between flex-grow-1">
+        <div class="tile">
+          <h3 class="tile-title">Chức vụ</h3>
+          <form style="max-height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Nội dung của form Chức vụ -->
+            <div>
+              <div class="row mb-3">
+                <div class="col-md-8">
+                  <label class="form-label">Tên chức vụ:</label>
+                  <input type="text" class="form-control" placeholder="Nhập tên chức vụ" ng-model="newPosition.name">
+                </div>
+                <div class="col-md-12 mt-3">
+                  <label class="mb-2">Phòng ban:</label>
+                  <div class="d-flex flex-wrap gap-3">
+                    <div class="form-check" ng-repeat="department in departments">
+                      <input class="form-check-input" type="checkbox" ng-model="department.selected"
+                        ng-change="updateSelectedDepartments()">
+                      <label class="form-check-label">{{ department.name }}</label>
+                    </div>
                   </div>
-                </td>
-                <td class="text-center">
-                  <i class="bi bi-trash3-fill text-danger me-4" ng-click="deleteDepartment(department.id)"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-6 d-flex flex-column justify-content-between">
-      <div class="tile" style="min-height: 600px;">
-        <h3 class="tile-title">Chức vụ</h3>
-        <form style="max-height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div class="row mb-3">
-              <div class="col-md-8">
-                <label class="form-label">Tên chức vụ:</label>
-                <input type="text" class="form-control" placeholder="Nhập tên chức vụ" ng-model="newPosition.name">
+                </div>
               </div>
-              <div class="col-md-4">
-                <label class="mb-2">Phòng ban:</label>
-                <select class="form-select" ng-model="newPosition.departmentId"
-                  ng-options="department.id as department.name for department in departments">
-                  <option value="">--- Chọn phòng ban ---</option>
-                </select>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
+                <button type="button" class="btn btn-outline btn-success rounded-pill me-md-1"
+                  ng-click="addPosition()">Thêm</button>
               </div>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
-              <button type="button" class="btn btn-outline btn-success rounded-pill me-md-1"
-                ng-click="addPosition()">Thêm</button>
-            </div>
-          </div>
-          <h3 class="tile-title">Danh sách chức vụ</h3>
-          <table class="table table-hover" id="chucVuTable">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Tên chức vụ</th>
-                <th>Phòng ban</th>
-                <th scope="col" style="width: 20%;">Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="position in positions">
-                <td>{{ position.id }}</td>
-                <td ng-dblclick="editPosition(position, 'name')">
-                  <input type="text" ng-model="position.name"
-                    ng-show="position.isEditing && position.editingField === 'name'" ng-blur="savePosition(position)"
-                    ng-keyup="checkEnter($event, position)" />
-                  <span ng-hide="position.isEditing && position.editingField === 'name'">{{ position.name }}</span>
-                </td>
-                <td>{{ getDepartmentName(position.departmentId) }}</td>
-                <td class="text-center">
-                  <i class="bi bi-trash3-fill text-danger me-4" ng-click="deletePosition(position.id)"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+            <h3 class="tile-title">Danh sách chức vụ</h3>
+            <table class="table table-hover" id="chucVuTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên chức vụ</th>
+                  <th>Phòng ban</th>
+                  <th scope="col" style="width: 20%;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="position in positions">
+                  <td>{{ position.id }}</td>
+                  <td ng-dblclick="editPosition(position, 'name')">
+                    <input type="text" ng-model="position.name"
+                      ng-show="position.isEditing && position.editingField === 'name'" ng-blur="savePosition(position)"
+                      ng-keyup="checkEnter($event, position)" />
+                    <span ng-hide="position.isEditing && position.editingField === 'name'">{{ position.name }}</span>
+                  </td>
+                  <td>{{ getDepartmentNames(position.departmentIds) }}</td>
+                  <td class="text-center">
+                    <i class="bi bi-trash3-fill text-danger me-4" ng-click="deletePosition(position.id)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Page specific javascripts-->
-  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      // Khởi tạo DataTable và gán vào biến
-      var phongBanTable = $('#phongBanTable').DataTable();
-      var chucVuTable = $('#chucVuTable').DataTable();
+    <!-- Page specific javascripts-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Khởi tạo DataTable và gán vào biến
+        var phongBanTable = $('#phongBanTable').DataTable();
+        var chucVuTable = $('#chucVuTable').DataTable();
 
-      var app = angular.module("app", []);
-    })
-  </script>
+        var app = angular.module("app", []);
+      })
+    </script>
 </main>
