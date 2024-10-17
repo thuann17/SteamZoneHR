@@ -14,7 +14,9 @@
       
       <div class="tile">
         <div class="tile-body">
-          <button class="btn btn-success mb-1" ng-click="openAddModal()">Thêm nhân viên</button>
+          <div class="row  d-flex align-items-end flex-column">
+            <button class="btn btn-outline-primary mb-3 col-2 me-2" ng-click="openAddModal()">Thêm nhân viên</button>
+          </div>
           <div class="table-responsive">
             <table class="table table-hover table-bordered table-sm" style="font-size: 12px;" id="employees">
               <thead>
@@ -234,9 +236,7 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
   $(document).ready(function() {
     $('#employees').DataTable();
