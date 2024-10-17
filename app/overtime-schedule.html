@@ -1,12 +1,167 @@
 <main class="app-content">
-    <div class="app-title">
-        <div>
-          <h1><i class="bi bi-speedometer"></i> Dashboard</h1>
-          <p>A free and open source Bootstrap 5 admin template</p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
-          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-        </ul>
+  <div class="app-title">
+    <div>
+      <h1><i class="bi bi-speedometer"></i> Lịch tăng ca</h1>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    </ul>
+  </div>
+
+  <!-- Bảng Lịch làm thêm giờ -->
+  <div class="col-md-12">
+    <div class="tile">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Thêm tăng ca
+        </button>
       </div>
+      <hr>
+      <div class="tile-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered" id="overtimeSchedules">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Ngày làm thêm</th>
+                <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th>
+                <th>Tiền công theo giờ</th>
+                <th style="width: 10%;">Trạng thái</th>
+                <th style="width: 10%;">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="schedule in overtimeSchedules">
+                <td>{{$index + 1}}</td>
+                <td>{{schedule.ScheduleDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{schedule.StartTime | date:'shortTime'}}</td>
+                <td>{{schedule.EndTime | date:'shortTime'}}</td>
+                <td>{{schedule.HourlyRate | currency}}</td>
+                <td>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch{{$index}}"
+                      ng-model="overtimeSchedule.trangthaiChecked" ng-checked="overtimeSchedule.Status === 'Đã tạo'"
+                      ng-click="toggleStatus(overtimeSchedule)">
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-warning" ng-click="openUpdateModal(schedule)"
+                    data-bs-toggle="modal" data-bs-target="#updateModal">
+                    Cập nhật
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </main>
+
+<!-- Modal thêm tăng ca-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm tăng ca</h1>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="col-md-8">
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Ngày làm thêm
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <label class="mb-2">Nhân viên:</label>
+            <div class="d-grid gap-3" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Nv1
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                  Nv2
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-primary">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cập nhật -->
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="updateModalLabel">Cập nhật tăng ca</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Ngày làm thêm:</label>
+              <input type="date" class="form-control" ng-model="selectedSchedule.ScheduleDate">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Thời gian bắt đầu:</label>
+              <input type="time" class="form-control" ng-model="selectedSchedule.StartTime">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Thời gian kết thúc:</label>
+              <input type="time" class="form-control" ng-model="selectedSchedule.EndTime">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Tiền công:</label>
+              <input type="number" class="form-control" ng-model="selectedSchedule.HourlyRate">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Trạng thái:</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch{{$index}}"
+                  ng-model="overtimeSchedule.trangthaiChecked" ng-checked="overtimeSchedule.Status === 'Đã tạo'"
+                  ng-click="toggleStatus(overtimeSchedule)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-primary" ng-click="updateSchedule()">Lưu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thêm link và script cho DataTable -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#employees').DataTable();
+      $('#overtimeSchedules').DataTable(); // Khởi tạo DataTable cho lịch làm thêm giờ
+    });
+  </script>
