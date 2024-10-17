@@ -29,6 +29,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+  <link href="../app/css/datatables.css" rel="stylesheet">
 </head>
 
 <body class="app sidebar-mini" ng-app="app">
@@ -175,11 +177,8 @@
   <script src="js/route/positionDepartmentController.js"></script>
   <script src="js/route/salaryStatisticsController.js"></script>
 
-  <!-- Page specific javascripts-->
-  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
-  <!-- Data table plugin-->
-  <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+  <script src="../app/js/plugins/datatables.js" rel="stylesheet"></script>
+
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <!-- Google analytics script-->
   <script type="text/javascript">

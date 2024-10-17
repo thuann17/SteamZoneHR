@@ -14,13 +14,13 @@
     <div class="tile">
       <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Thêm tăng ca
+          Tạo lịch tăng ca
         </button>
       </div>
       <hr>
       <div class="tile-body">
         <div class="table-responsive">
-          <table class="table table-hover table-bordered" id="overtimeSchedules">
+          <table class="table table-hover table-bordered table-sm" style="font-size: 12px;" id="overtimeSchedules">
             <thead>
               <tr>
                 <th>STT</th>
@@ -33,7 +33,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="schedule in overtimeSchedules">
+              <tr ng-repeat="schedule in overtimeSchedules" ng-click="goToSchedule(schedule)">
                 <td>{{$index + 1}}</td>
                 <td>{{schedule.ScheduleDate | date:'dd/MM/yyyy'}}</td>
                 <td>{{schedule.StartTime | date:'shortTime'}}</td>
@@ -68,7 +68,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm tăng ca</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Tạo lịch tăng ca</h1>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -124,14 +124,6 @@
             <label class="form-label">Tiền công:</label>
             <input type="number" class="form-control" ng-model="selectedSchedule.HourlyRate">
           </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Trạng thái:</label>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch{{$index}}"
-                ng-model="overtimeSchedule.trangthaiChecked" ng-checked="overtimeSchedule.Status === 'Đã tạo'"
-                ng-click="toggleStatus(overtimeSchedule)">
-            </div>
-          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -141,14 +133,8 @@
     </div>
   </div>
 </div>
-
-<!-- Thêm link và script cho DataTable -->
-<link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script>
   $(document).ready(function () {
-    $('#employees').DataTable();
-    $('#overtimeSchedules').DataTable(); // Khởi tạo DataTable cho lịch làm thêm giờ
+    $('#overtimeSchedules').DataTable();
   });
 </script>

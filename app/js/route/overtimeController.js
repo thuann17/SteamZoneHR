@@ -164,6 +164,14 @@ app.controller('overtimeController', function($scope, $http) {
 
     ];
 
+    $scope.goToSchedule = function(schedule) {
+        // Lưu schedule vào localStorage hoặc sessionStorage
+        localStorage.setItem('selectedSchedule', JSON.stringify(schedule));
+        
+        // Chuyển hướng tới overtime-schedule.html
+        window.location.href = 'overtime-schedule.html';
+      };
+
     // Hàm toggleStatus để thay đổi trạng thái
     $scope.toggleStatus = function(overtimeSchedule) {
         // Kiểm tra trạng thái hiện tại và cập nhật
