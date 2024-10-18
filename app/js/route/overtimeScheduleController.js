@@ -1,27 +1,5 @@
 app.controller('overtimeScheduleController', function ($scope, $http) {
 
-    $scope.overtimeSchedules = [
-        { ScheduleID: 1, ScheduleDate: '2024-10-01', Status: 'đã tạo' },
-        { ScheduleID: 2, ScheduleDate: '2024-10-02', Status: 'đã hủy' },
-        { ScheduleID: 3, ScheduleDate: '2024-10-03', Status: 'đã tạo' },
-        { ScheduleID: 4, ScheduleDate: '2024-10-04', Status: 'đã hủy' },
-        { ScheduleID: 5, ScheduleDate: '2024-10-05', Status: 'đã tạo' },
-        { ScheduleID: 6, ScheduleDate: '2024-10-06', Status: 'đã hủy' },
-        { ScheduleID: 7, ScheduleDate: '2024-10-07', Status: 'đã tạo' },
-        { ScheduleID: 8, ScheduleDate: '2024-10-08', Status: 'đã hủy' },
-        { ScheduleID: 9, ScheduleDate: '2024-10-09', Status: 'đã tạo' },
-        { ScheduleID: 10, ScheduleDate: '2024-10-10', Status: 'đã hủy' },
-        { ScheduleID: 11, ScheduleDate: '2024-10-11', Status: 'đã tạo' },
-        { ScheduleID: 12, ScheduleDate: '2024-10-12', Status: 'đã hủy' },
-        { ScheduleID: 13, ScheduleDate: '2024-10-13', Status: 'đã tạo' },
-        { ScheduleID: 14, ScheduleDate: '2024-10-14', Status: 'đã hủy' },
-        { ScheduleID: 15, ScheduleDate: '2024-10-15', Status: 'đã tạo' },
-        { ScheduleID: 16, ScheduleDate: '2024-10-16', Status: 'đã hủy' },
-        { ScheduleID: 17, ScheduleDate: '2024-10-17', Status: 'đã tạo' },
-        { ScheduleID: 18, ScheduleDate: '2024-10-18', Status: 'đã hủy' },
-        { ScheduleID: 19, ScheduleDate: '2024-10-19', Status: 'đã tạo' },
-        { ScheduleID: 20, ScheduleDate: '2024-10-20', Status: 'đã hủy' }
-    ];
 
     $scope.employees = [
         { id: 1, phong: "Kế toán", chucvu: "Nhân viên", hoten: "Nguyễn Văn A", gioitinh: "Nam", ngaysinh: "1990-01-01", email: "a.nguyen@example.com", sdt: "0912345678", cccd: "123456789", diachi: "Hà Nội", trangthai: "Kích hoạt", imageUrl: "images/employee1.jpg" },
@@ -44,63 +22,6 @@ app.controller('overtimeScheduleController', function ($scope, $http) {
         { id: 18, phong: "Nhân sự", chucvu: "Nhân viên", hoten: "Trần Thị R", gioitinh: "Nữ", ngaysinh: "1990-06-06", email: "r.tran@example.com", sdt: "0912345695", cccd: "789012346", diachi: "Đà Nẵng", trangthai: "Kích hoạt", imageUrl: "images/employee18.jpg" },
         { id: 19, phong: "Marketing", chucvu: "Nhân viên", hoten: "Lê Văn S", gioitinh: "Nam", ngaysinh: "1992-07-07", email: "s.le@example.com", sdt: "0912345696", cccd: "890123457", diachi: "Hải Phòng", trangthai: "Khóa", imageUrl: "images/employee19.jpg" }
     ];
-
-    $scope.Departments = [
-        { DepartmentID: 1, DepartmentName: 'Phòng Kinh Doanh', IsActive: 1 },
-        { DepartmentID: 2, DepartmentName: 'Phòng Nhân Sự', IsActive: 1 },
-        { DepartmentID: 3, DepartmentName: 'Phòng Kỹ Thuật', IsActive: 1 },
-        { DepartmentID: 4, DepartmentName: 'Phòng Tài Chính', IsActive: 1 },
-        { DepartmentID: 5, DepartmentName: 'Phòng Marketing', IsActive: 1 },
-    ];
-
-    $scope.Positions = [
-        { PositionID: 1, PositionName: 'Giám Đốc'},
-        { PositionID: 2, PositionName: 'Trưởng Phòng'},
-        { PositionID: 3, PositionName: 'Nhân Viên'},
-        { PositionID: 4, PositionName: 'Thực Tập Sinh'},
-        { PositionID: 5, PositionName: 'Chuyên Viên'},
-        { PositionID: 6, PositionName: 'Kỹ Sư'},
-        { PositionID: 7, PositionName: 'Nhân Viên Hỗ Trợ'},
-        { PositionID: 8, PositionName: 'Quản Lý Dự Án'},
-        { PositionID: 9, PositionName: 'Kế Toán'},
-        { PositionID: 10, PositionName: 'Nhân Viên Bán Hàng'},
-    ];
-
-    // Lấy thông tin ngày làm thêm từ local storage
-    const selectedScheduleDate = localStorage.getItem('selectedScheduleDate');
-    if (selectedScheduleDate) {
-        // Giả sử bạn đã có một hàm để lọc lịch tăng ca theo ngày
-        $scope.selectedOvertimeSchedule = $scope.filterOvertimeSchedules().find(schedule => schedule.ScheduleDate === selectedScheduleDate);
-    }
-
-
-    $scope.today = new Date(); // Ngày hiện tại
-
-    // Lọc các lịch làm thêm có ngày >= ngày hiện tại
-    $scope.filterOvertimeSchedules = function () {
-        const today = new Date(); // Ngày hiện tại
-        return $scope.overtimeSchedules.filter(function (schedule) {
-            const scheduleDate = new Date(schedule.ScheduleDate); // Chuyển đổi sang đối tượng Date
-            // Kiểm tra trạng thái và ngày
-            return schedule.Status === 'đã tạo' && scheduleDate >= today;
-        });
-    };
-
-    // Lọc các phòng ban đang hoạt động
-    $scope.getActiveDepartments = function () {
-        return $scope.Departments.filter(function (department) {
-            return department.IsActive === 1;
-        });
-    };
-
-    // Lấy tất cả các chức vụ
-    $scope.getAllPositions = function () {
-        return $scope.Positions; // Trả về toàn bộ danh sách các chức vụ
-    };
-
-    // Khởi tạo các biến cho phòng ban và chức vụ đã chọn
-    $scope.selectedDepartment = null;
-    $scope.selectedPosition = null;
 
     $scope.selectAll = false; // Biến để theo dõi trạng thái của checkbox chọn tất cả
 
