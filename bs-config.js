@@ -4,9 +4,8 @@ module.exports = {
   port: 3000,
   server: {
     baseDir: './',
-    index: 'index.html',
+    index: 'index.html', // Thay đổi index thành layout.html
     middleware: [
-      require('connect-history-api-fallback')(),
       createProxyMiddleware('/api', {
         target: 'http://localhost:8080',
         changeOrigin: true,
@@ -14,7 +13,8 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
-      })
+      }),
+      require('connect-history-api-fallback')() // Thêm sau khi proxy
     ]
   },
   files: [
