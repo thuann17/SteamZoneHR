@@ -5,7 +5,8 @@ app.controller('positionController', function ($scope, $http) {
         { id: 2, name: 'Phòng kỹ thuật', status: true, isSelected: false },
         { id: 3, name: 'Phòng bán hàng', status: false, isSelected: false },
         { id: 4, name: 'Phòng marketing', status: true, isSelected: false },
-        { id: 5, name: 'Phòng tài chính', status: false, isSelected: false }
+        { id: 5, name: 'Phòng tài chính', status: false, isSelected: false },
+        { id: 6, name: 'Phòng công nghệ', status: false, isSelected: false }
     ];
 
     $scope.positions = [
