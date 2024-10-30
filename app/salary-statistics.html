@@ -1,12 +1,56 @@
 <main class="app-content">
-    <div class="app-title">
-        <div>
-          <h1><i class="bi bi-speedometer"></i> Dashboard</h1>
-          <p>A free and open source Bootstrap 5 admin template</p>
+  <div class="app-title">
+    <div>
+      <h1><i class="bi bi-speedometer"></i> Danh sách thống kê lương</h1>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered table-sm" style="font-size: 12px;" id="salary-statistics">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên nhân viên</th>
+                  <th>Chức vụ</th>
+                  <th>Phòng ban</th>
+                  <th>Ngày nhận lương</th>
+                  <th>Lương cơ bản</th>
+                  <th>Tổng phụ cấp</th>
+                  <th>Tiền làm thêm</th>
+                  <th>Tổng lương</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="employee in employees">
+                  <td>{{$index + 1}}</td>
+                  <td>{{employee.name}}</td>
+                  <td>{{employee.position}}</td>
+                  <td>{{employee.department}}</td>
+                  <td>{{employee.salaryDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{employee.baseSalary | currency}}</td>
+                  <td>{{employee.allowance | currency}}</td>
+                  <td>{{employee.overtimePay | currency}}</td>
+                  <td>{{employee.totalSalary | currency}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
-          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-        </ul>
       </div>
+    </div>
+  </div>
 </main>
+<script>
+  $(document).ready(function () {
+    $('#salary-statistics').DataTable();
+  });
+
+</script>
