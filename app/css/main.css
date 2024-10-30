@@ -13402,8 +13402,8 @@ textarea.form-control-lg {
 }
 
 .app-content {
-  min-height: calc(100vh - 50px);
-  margin-top: 50px;
+  min-height: calc(80vh - 30px);
+  margin-top: 10px;
   padding: 30px;
   background-color: #E5E5E5;
   -webkit-transition: margin-left 0.3s ease;
@@ -13416,7 +13416,7 @@ textarea.form-control-lg {
 }
 @media (max-width: 767px) {
   .app-content {
-    margin-top: 50px;
+    margin-top: 10px;
     min-width: 100%;
   }
 }
