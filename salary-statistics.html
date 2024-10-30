@@ -35,10 +35,10 @@
                   <td>{{employee.position}}</td>
                   <td>{{employee.department}}</td>
                   <td>{{employee.salaryDate | date:'dd/MM/yyyy'}}</td>
-                  <td>{{employee.baseSalary | currency}}</td>
-                  <td>{{employee.allowance | currency}}</td>
-                  <td>{{employee.overtimePay | currency}}</td>
-                  <td>{{employee.totalSalary | currency}}</td>
+                  <td>{{ employee.baseSalary | number:0 }} ₫</td>
+                  <td>{{ employee.allowance | number:0 }} ₫</td>
+                  <td>{{ employee.overtimePay | number:0 }} ₫</td>
+                  <td>{{ employee.totalSalary | number:0 }} ₫</td>
                 </tr>
               </tbody>
             </table>

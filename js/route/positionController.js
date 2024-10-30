@@ -1,132 +1,119 @@
-app.controller('positionController', function ($scope, $http) {
-    // Dữ liệu giả lập cho Phòng ban và Chức vụ
-    $scope.departments = [
-        { id: 1, name: 'Phòng nhân sự', status: true, isSelected: false },
-        { id: 2, name: 'Phòng kỹ thuật', status: true, isSelected: false },
-        { id: 3, name: 'Phòng bán hàng', status: false, isSelected: false },
-        { id: 4, name: 'Phòng marketing', status: true, isSelected: false },
-        { id: 5, name: 'Phòng tài chính', status: false, isSelected: false },
-        { id: 6, name: 'Phòng công nghệ', status: false, isSelected: false }
-    ];
-
-    $scope.positions = [
-        { id: 1, name: 'Trưởng phòng', departmentIds: [1] },
-        { id: 2, name: 'Nhân viên', departmentIds: [1] },
-        { id: 3, name: 'Kỹ sư', departmentIds: [2] },
-        { id: 4, name: 'Nhân viên bán hàng', departmentIds: [3] },
-        { id: 5, name: 'Chuyên viên marketing', departmentIds: [4] }
-    ];
-
-    // Hàm lấy tên phòng ban dựa trên ID
-    $scope.getDepartmentNames = function (departmentIds) {
-        return departmentIds.map(id => {
-            const department = $scope.departments.find(dep => dep.id === id);
-            return department ? department.name : '';
-        }).join(', ');
+angular.module('app').service('PositionService', function($http) {
+    // Sử dụng endpoint tương đối
+    this.getAllDepartments = function() {
+        return $http.get('/api/PositionDepartment/getAll');
     };
 
-    // Cập nhật danh sách phòng ban đã chọn
-    $scope.updateSelectedDepartments = function () {
-        const selectedDepartmentIds = $scope.departments
-            .filter(department => department.isSelected)
-            .map(department => department.id);
-
-        // Cập nhật id phòng ban trong chức vụ mới
-        $scope.newPosition.departmentIds = selectedDepartmentIds;
+    this.getAllPositions = function() {
+        return $http.get('/api/position');
     };
 
-
-    // Hàm thêm phòng ban
-    $scope.addDepartment = function () {
-        var newDepartment = {
-            id: $scope.departments.length + 1,
-            name: $scope.newDepartment.name,
-            status: $scope.newDepartment.status
-        };
-        $scope.departments.push(newDepartment);
-        phongBanTable.row.add(newDepartment).draw(); // thêm vào DataTable
-        $scope.newDepartment = {}; // reset form
+    this.addDepartment = function(department) {
+        return $http.post('/api/PositionDepartment/add-position-department', department);
     };
 
-    // Hàm cập nhật phòng ban
-    $scope.updateDepartment = function () {
-        // Cập nhật logic ở đây
-        alert("Chức năng cập nhật phòng ban chưa được triển khai.");
+    this.updateDepartment = function(id, department) {
+        return $http.put(`/api/PositionDepartment/update-position-department/${id}`, department);
     };
 
-    // Hàm lưu phòng ban sau khi chỉnh sửa
-    $scope.saveDepartment = function (department) {
-        department.isEditing = false;
-        // Logic lưu cập nhật ở đây
+    this.addPosition = function(position) {
+        return $http.post('/api/position', position);
     };
 
-    // Hàm xóa phòng ban
-    $scope.deleteDepartment = function (id) {
-        $scope.departments = $scope.departments.filter(function (dep) {
-            return dep.id !== id;
-        });
-        phongBanTable.clear().rows.add($scope.departments).draw(); // cập nhật DataTable
+    this.updatePosition = function(id, position) {
+        return $http.put(`/api/position/${id}`, position);
+    };
+});
+
+angular.module('app').controller('PositionController', function($scope, DepartmentPositionService) {
+    $scope.positions = [];
+    $scope.departments = [];
+    $scope.newDepartment = {};
+    $scope.selectedDepartment = null;
+    $scope.newPosition = {};
+    $scope.selectedPosition = null;
+
+    // Lấy tất cả phòng ban
+    $scope.loadDepartments = function() {
+        DepartmentPositionService.getAllDepartments()
+            .then(function(response) {
+                $scope.departments = response.data;
+            })
+            .catch(function(error) {
+                console.error("Error fetching departments:", error);
+            });
     };
 
-    // Hàm thêm chức vụ
-    $scope.addPosition = function () {
-        var selectedDepartmentIds = $scope.departments
-            .filter(department => department.isSelected) // Lọc các phòng ban đã chọn
-            .map(department => department.id); // Lấy danh sách ID phòng ban
-
-        var newPosition = {
-            id: $scope.positions.length + 1,
-            name: $scope.newPosition.name,
-            departmentIds: selectedDepartmentIds, // Gán danh sách phòng ban đã chọn
-            isEditing: false
-        };
-
-        $scope.positions.push(newPosition); // Thêm chức vụ vào danh sách
-        chucVuTable.row.add(newPosition).draw(); // Thêm vào DataTable
-
-        // Sau khi thêm, reset form nhưng KHÔNG reset ngay các checkbox
-        $scope.newPosition = {}; // Reset thông tin chức vụ
-        $scope.departments.forEach(department => department.isSelected = false); // Reset checkbox sau
+    // Lấy tất cả chức vụ
+    $scope.loadPositions = function() {
+        DepartmentPositionService.getAllPositions()
+            .then(function(response) {
+                $scope.positions = response.data;
+            })
+            .catch(function(error) {
+                console.error("Error fetching positions:", error);
+            });
     };
 
-
-    // Hàm cập nhật chức vụ
-    $scope.updatePosition = function () {
-        // Cập nhật logic ở đây
-        alert("Chức năng cập nhật chức vụ chưa được triển khai.");
+    // Thêm phòng ban
+    $scope.addDepartment = function() {
+        DepartmentPositionService.addDepartment($scope.newDepartment)
+            .then(function(response) {
+                $scope.departments.push(response.data);
+                $scope.newDepartment = {}; // Reset form
+            })
+            .catch(function(error) {
+                console.error("Error adding department:", error);
+            });
     };
 
-    // Hàm lưu chức vụ sau khi chỉnh sửa
-    $scope.savePosition = function (position) {
-        position.isEditing = false;
-        // Logic lưu cập nhật ở đây
-    };
-
-    // Hàm xóa chức vụ
-    $scope.deletePosition = function (id) {
-        $scope.positions = $scope.positions.filter(function (pos) {
-            return pos.id !== id;
-        });
-        chucVuTable.clear().rows.add($scope.positions).draw(); // cập nhật DataTable
-    };
-
-    // Hàm chỉnh sửa phòng ban
-    $scope.editDepartment = function (department, field) {
-        department.isEditing = true;
-        department.editingField = field;
-    };
-
-    // Hàm chỉnh sửa chức vụ
-    $scope.editPosition = function (position, field) {
-        position.isEditing = true;
-        position.editingField = field;
-    };
-
-    // Kiểm tra phím Enter để lưu chỉnh sửa
-    $scope.checkEnter = function (event, item) {
-        if (event.key === "Enter") {
-            item.isEditing = false;
-            // Logic lưu cập nhật ở đây
+    // Cập nhật phòng ban
+    $scope.updateDepartment = function() {
+        if ($scope.selectedDepartment) {
+            DepartmentPositionService.updateDepartment($scope.selectedDepartment.id, $scope.selectedDepartment)
+                .then(function(response) {
+                    const index = $scope.departments.findIndex(department => department.id === response.data.id);
+                    if (index !== -1) {
+                        $scope.departments[index] = response.data; // Cập nhật danh sách
+                    }
+                    $scope.selectedDepartment = null; // Reset selection
+                })
+                .catch(function(error) {
+                    console.error("Error updating department:", error);
+                });
         }
     };
+
+    // Thêm chức vụ
+    $scope.addPosition = function() {
+        DepartmentPositionService.addPosition($scope.newPosition)
+            .then(function(response) {
+                $scope.positions.push(response.data);
+                $scope.newPosition = {}; // Reset form
+            })
+            .catch(function(error) {
+                console.error("Error adding position:", error);
+            });
+    };
+
+    // Cập nhật chức vụ
+    $scope.updatePosition = function() {
+        if ($scope.selectedPosition) {
+            DepartmentPositionService.updatePosition($scope.selectedPosition.id, $scope.selectedPosition)
+                .then(function(response) {
+                    const index = $scope.positions.findIndex(position => position.id === response.data.id);
+                    if (index !== -1) {
+                        $scope.positions[index] = response.data; // Cập nhật danh sách
+                    }
+                    $scope.selectedPosition = null; // Reset selection
+                })
+                .catch(function(error) {
+                    console.error("Error updating position:", error);
+                });
+        }
+    };
+
+    // Khởi tạo dữ liệu
+    $scope.loadDepartments();
+    $scope.loadPositions();
 });
