@@ -1,27 +1,29 @@
 angular.module('app').service('PositionService', function($http) {
     // Sử dụng endpoint tương đối
+    const BASE_URL = 'http://localhost:8080'
+
     this.getAllDepartments = function() {
-        return $http.get('/api/PositionDepartment/getAll');
+        return $http.get(BASE_URL+'/api/PositionDepartment/getAll');
     };
 
     this.getAllPositions = function() {
-        return $http.get('/api/position');
+        return $http.get(BASE_URL+'/api/position');
     };
 
     this.addDepartment = function(department) {
-        return $http.post('/api/PositionDepartment/add-position-department', department);
+        return $http.post(BASE_URL+'/api/PositionDepartment/add-position-department', department);
     };
 
     this.updateDepartment = function(id, department) {
-        return $http.put(`/api/PositionDepartment/update-position-department/${id}`, department);
+        return $http.put(`${BASE_URL}/api/PositionDepartment/update-position-department/${id}`, department);
     };
 
     this.addPosition = function(position) {
-        return $http.post('/api/position', position);
+        return $http.post(BASE_URL+'/api/position', position);
     };
 
     this.updatePosition = function(id, position) {
-        return $http.put(`/api/position/${id}`, position);
+        return $http.put(`${BASE_URL}/api/position/${id}`, position);
     };
 });
 
