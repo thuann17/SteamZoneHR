@@ -1,43 +1,16 @@
 {
   "name": "steamzone",
   "version": "4.1.0",
-  "description": "An admin theme built with Bootstrap, sass and PugJs",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "grunt": "^1.6.1",
-    "grunt-contrib-cssmin": "^5.0.0",
-    "grunt-contrib-pug": "^3.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-postcss": "^0.9.0",
-    "grunt-sass": "^3.1.0",
-    "lite-server": "^2.6.1",
-    "sass": "^1.69.3"
-  },
   "scripts": {
-    "dev": "grunt watch",
-    "build": "grunt build --verbose",
-    "start": "lite-server --config bs-config.js"
+    "start": "lite-server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nhiemlt/SteamZoneHR.git"
+  "devDependencies": {
+    "connect-history-api-fallback": "^2.0.0",
+    "http-proxy-middleware": "^3.0.3",
+    "lite-server": "^2.6.1"
   },
-  "keywords": [
-    "admin",
-    "dashboard",
-    "theme"
-  ],
-  "author": "Pratik Borsadiya",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nhiemlt/SteamZoneHR.git/issues"
-  },
-  "homepage": "https://github.com/nhiemlt/SteamZoneHR.git",
   "dependencies": {
     "bootstrap": "^5.3.2",
     "datatables.net-dt": "^2.1.8"
-  },
-  "files": [
-    "docs"
-  ]
+  }
 }
