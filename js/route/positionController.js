@@ -1,31 +1,31 @@
 angular.module('app').service('PositionService', function($http) {
     // Sử dụng endpoint tương đối
     this.getAllDepartments = function() {
-        return $http.get('/api/PositionDepartment/getAll');
+        return $http.get('./api/PositionDepartment/getAll');
     };
 
     this.getAllPositions = function() {
-        return $http.get('/api/position');
+        return $http.get('./api/position');
     };
 
     this.addDepartment = function(department) {
-        return $http.post('/api/PositionDepartment/add-position-department', department);
+        return $http.post('./api/PositionDepartment/add-position-department', department);
     };
 
     this.updateDepartment = function(id, department) {
-        return $http.put(`/api/PositionDepartment/update-position-department/${id}`, department);
+        return $http.put(`./api/PositionDepartment/update-position-department/${id}`, department);
     };
 
     this.addPosition = function(position) {
-        return $http.post('/api/position', position);
+        return $http.post('./api/position', position);
     };
 
     this.updatePosition = function(id, position) {
-        return $http.put(`/api/position/${id}`, position);
+        return $http.put(`./api/position/${id}`, position);
     };
 });
 
-angular.module('app').controller('PositionController', function($scope, DepartmentPositionService) {
+angular.module('app').controller('positionController', function($scope, PositionService) {
     $scope.positions = [];
     $scope.departments = [];
     $scope.newDepartment = {};
@@ -35,7 +35,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
 
     // Lấy tất cả phòng ban
     $scope.loadDepartments = function() {
-        DepartmentPositionService.getAllDepartments()
+        PositionService.getAllDepartments()
             .then(function(response) {
                 $scope.departments = response.data;
             })
@@ -46,7 +46,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
 
     // Lấy tất cả chức vụ
     $scope.loadPositions = function() {
-        DepartmentPositionService.getAllPositions()
+        PositionService.getAllPositions()
             .then(function(response) {
                 $scope.positions = response.data;
             })
@@ -57,7 +57,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
 
     // Thêm phòng ban
     $scope.addDepartment = function() {
-        DepartmentPositionService.addDepartment($scope.newDepartment)
+        PositionService.addDepartment($scope.newDepartment)
             .then(function(response) {
                 $scope.departments.push(response.data);
                 $scope.newDepartment = {}; // Reset form
@@ -70,7 +70,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
     // Cập nhật phòng ban
     $scope.updateDepartment = function() {
         if ($scope.selectedDepartment) {
-            DepartmentPositionService.updateDepartment($scope.selectedDepartment.id, $scope.selectedDepartment)
+            PositionService.updateDepartment($scope.selectedDepartment.id, $scope.selectedDepartment)
                 .then(function(response) {
                     const index = $scope.departments.findIndex(department => department.id === response.data.id);
                     if (index !== -1) {
@@ -86,7 +86,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
 
     // Thêm chức vụ
     $scope.addPosition = function() {
-        DepartmentPositionService.addPosition($scope.newPosition)
+        PositionService.addPosition($scope.newPosition)
             .then(function(response) {
                 $scope.positions.push(response.data);
                 $scope.newPosition = {}; // Reset form
@@ -99,7 +99,7 @@ angular.module('app').controller('PositionController', function($scope, Departme
     // Cập nhật chức vụ
     $scope.updatePosition = function() {
         if ($scope.selectedPosition) {
-            DepartmentPositionService.updatePosition($scope.selectedPosition.id, $scope.selectedPosition)
+            PositionService.updatePosition($scope.selectedPosition.id, $scope.selectedPosition)
                 .then(function(response) {
                     const index = $scope.positions.findIndex(position => position.id === response.data.id);
                     if (index !== -1) {
