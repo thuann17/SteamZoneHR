@@ -263,7 +263,6 @@ angular
           $scope.positions = response.data;
           $scope.loadPositions();
           $scope.newPosition = {};
-
           Swal.fire("Thành công!", "Chức vụ đã được thêm.", "success");
         })
         .catch(function (error) {
@@ -328,7 +327,7 @@ angular
               console.error("Có nhân viên trong phòng ban này:", error);
               Swal.fire({
                 title: "Lỗi!",
-                text: "Không thể xoá. Có nhân viên trong phòng ban này.",
+                text: "Không thể xoá.  Có nhân viên trong phòng ban này.",
                 icon: "error",
               });
             });
